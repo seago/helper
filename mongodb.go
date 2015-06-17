@@ -1,8 +1,6 @@
 package helper
 
 import (
-	log "github.com/seago/logger"
-
 	"labix.org/v2/mgo"
 	"labix.org/v2/mgo/bson"
 
@@ -42,7 +40,6 @@ func (m *Mongo) C(collection bson.M) *mgo.Collection {
 					indexSlice := strings.Split(v, ",")
 					err := m.collections[colName].EnsureIndex(mgo.Index{Key: indexSlice, Unique: false, DropDups: false})
 					if err != nil {
-						log.Error("<C> set index error:%v", err)
 						return nil
 					}
 				}
@@ -56,7 +53,6 @@ func (m *Mongo) C(collection bson.M) *mgo.Collection {
 				uniqueSlice := strings.Split(v, ",")
 				err := m.collections[colName].EnsureIndex(mgo.Index{Key: uniqueSlice, Unique: true})
 				if err != nil {
-					log.Error("<C> set unique error:%v", err)
 					return nil
 				}
 			}
